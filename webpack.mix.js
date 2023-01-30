@@ -3,8 +3,6 @@ const path = require('path');
 
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-require('laravel-mix-merge-manifest');
-
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -21,6 +19,9 @@ mix.disableNotifications();
 mix.js('resources/js/app.js', 'public/assets/build')
     .vue()
     .webpackConfig({
+        output: {
+            chunkFilename: path.join('assets/build', `[name].[hash].js`),
+        },
         plugins: [
             new CleanWebpackPlugin({
                 dry: false,
@@ -42,6 +43,6 @@ mix.css('resources/css/app.css', 'public/assets/build')
         processCssUrls: false,
     });
 
-mix.mergeManifest();
+//mix.mergeManifest();
 
 mix.version();
